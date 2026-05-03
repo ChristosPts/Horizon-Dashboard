@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build output
+out/
+release/
+dist/
+dist-electron/
+
+# electron-store data (contains API keys and personal data)
+# Location varies by OS — added here for clarity
+*.json.lock
+
+# Vite
+.vite/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+.idea/
+
+# Environment (never commit secrets)
+.env
+.env.*

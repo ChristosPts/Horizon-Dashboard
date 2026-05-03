@@ -1,0 +1,255 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Theme tokens ──────────────────────────────────────────────────── */
+:root {
+  --titlebar-height: 42px;
+}
+
+[data-theme="dark"] {
+  --bg-glass:          rgba(12, 12, 24, 0.65);
+  --bg-glass-hover:    rgba(18, 18, 36, 0.72);
+  --bg-titlebar:       rgba(6, 6, 14, 0.82);
+  --border-glass:      rgba(255, 255, 255, 0.07);
+  --border-accent:     rgba(139, 92, 246, 0.45);
+  --text-primary:      rgba(255, 255, 255, 0.93);
+  --text-secondary:    rgba(255, 255, 255, 0.50);
+  --accent:            #8B5CF6;
+  --accent-blue:       #60A5FA;
+  --accent-glow:       rgba(139, 92, 246, 0.30);
+  --shadow-glass:      0 8px 32px rgba(0, 0, 0, 0.55);
+  --scrollbar-thumb:   rgba(139, 92, 246, 0.35);
+}
+
+[data-theme="light"] {
+  --bg-glass:          rgba(255, 255, 255, 0.40);
+  --bg-glass-hover:    rgba(255, 255, 255, 0.58);
+  --bg-titlebar:       rgba(245, 243, 255, 0.78);
+  --border-glass:      rgba(139, 92, 246, 0.12);
+  --border-accent:     rgba(139, 92, 246, 0.50);
+  --text-primary:      rgba(12, 8, 28, 0.93);
+  --text-secondary:    rgba(12, 8, 28, 0.52);
+  --accent:            #7C3AED;
+  --accent-blue:       #3B82F6;
+  --accent-glow:       rgba(124, 58, 237, 0.18);
+  --shadow-glass:      0 8px 32px rgba(100, 80, 200, 0.12);
+  --scrollbar-thumb:   rgba(124, 58, 237, 0.30);
+}
+
+/* ── Reset & base ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  overflow: hidden;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background: transparent;
+}
+
+/* ── Scrollbars ────────────────────────────────────────────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 99px;
+}
+
+/* ── Glassmorphism widget ──────────────────────────────────────────── */
+.glass-widget {
+  background: var(--bg-glass);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--border-glass);
+  border-radius: 14px;
+  box-shadow: var(--shadow-glass), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+.glass-widget:hover {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-glass), 0 0 0 1px var(--accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* ── Titlebar ──────────────────────────────────────────────────────── */
+.glass-titlebar {
+  height: var(--titlebar-height);
+  background: var(--bg-titlebar);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border-bottom: 1px solid var(--border-glass);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 0 14px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 100;
+  -webkit-app-region: drag;
+  user-select: none;
+}
+
+.titlebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.logo-mark {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, #8B5CF6, #60A5FA);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.logo-text {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  background: linear-gradient(135deg, #8B5CF6 30%, #60A5FA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.titlebar-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  -webkit-app-region: no-drag;
+}
+
+.titlebar-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--border-glass);
+  margin: 0 4px;
+}
+
+.titlebar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  outline: none;
+}
+
+.titlebar-btn:hover {
+  background: rgba(139, 92, 246, 0.14);
+  color: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.titlebar-btn-close:hover {
+  background: rgba(239, 68, 68, 0.18);
+  color: #f87171;
+  box-shadow: none;
+}
+
+/* ── Dashboard & grid ──────────────────────────────────────────────── */
+.dashboard-root {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+}
+
+.widget-wrapper {
+  height: 100%;
+}
+
+/* ── Widget internals ──────────────────────────────────────────────── */
+.widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-glass);
+  cursor: grab;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.widget-header:active { cursor: grabbing; }
+
+.widget-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+}
+
+.widget-body {
+  flex: 1;
+  padding: 14px;
+  overflow: auto;
+  min-height: 0;
+}
+
+/* ── react-grid-layout overrides ───────────────────────────────────── */
+.react-grid-item.react-grid-placeholder {
+  background: var(--accent);
+  opacity: 0.12;
+  border-radius: 12px;
+  transition-duration: 100ms;
+}
+
+.react-resizable-handle {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.react-resizable-handle::after {
+  border-color: var(--accent) !important;
+  border-width: 0 2px 2px 0 !important;
+  width: 7px !important;
+  height: 7px !important;
+}
+
+.glass-widget:hover .react-resizable-handle,
+.react-grid-item:hover .react-resizable-handle {
+  opacity: 0.6;
+}
+
+.react-resizable-handle:hover {
+  opacity: 1 !important;
+}
+
+/* ── Text utilities ────────────────────────────────────────────────── */
+.text-secondary { color: var(--text-secondary); }
+.text-accent    { color: var(--accent); }

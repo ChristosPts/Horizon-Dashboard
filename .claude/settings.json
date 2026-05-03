@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(src/**)",
+      "Write(src/**)",
+      "Read(electron/**)",
+      "Write(electron/**)",
+      "Read(public/**)",
+      "Write(public/**)",
+      "Read(vite.config.js)",
+      "Write(vite.config.js)",
+      "Read(tailwind.config.js)",
+      "Write(tailwind.config.js)",
+      "Read(package.json)",
+      "Write(package.json)",
+      "Read(CLAUDE.md)",
+      "Read(requirements.md)",
+      "Bash(npm install *)",
+      "Bash(npm run dev)",
+      "Bash(npm run build)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Write(.env)",
+      "Write(node_modules/**)",
+      "Write(dist/**)",
+      "Write(dist-electron/**)",
+      "Bash(npm publish*)",
+      "Bash(git push*)",
+      "Bash(rm -rf *)"
+    ]
+  }
+}
